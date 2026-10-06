@@ -1,0 +1,756 @@
+operator:
+    handle: smford
+    host: mainframe
+    title: smford.github.io
+    subtitle: '> WOODWORKING SOFTWARE ENGINEER // HARDWARE PROTOTYPER'
+    bio: Bridging low-level firmware engineering, bespoke IoT hardware controllers, real-time laser telemetry, and physical CNC/timber fabrication from the Bay Area network.
+    sec_net: ACTIVE
+telemetry:
+    kernel: 6.1.0-DEBIAN
+    cyberware: ESP32 / PI / CAD
+    security_ice: UNRESTRICTED
+    repositories: 27 DEPLOYED
+settings:
+    default_theme: cyberpunk
+    mouse_enabled: true
+    skip_boot: false
+vfs:
+    bio.txt: |-
+        OPERATOR PROFILE:
+        Name: Steve Ford (@smford)
+        Role: Woodworking Software Engineer & Hardware Prototyper
+        Specialty: Bridging physical timber engineering with embedded C++, Linux sysadmin, and custom CAD tooling.
+        Location: Bay Area Node // UK Matrix Grid
+    hardware.ino: |-
+        // EEH ESP32 RFID Safety Sentry
+        #include <SPI.h>
+        #include <MFRC522.h>
+
+        #define SS_PIN    5
+        #define RST_PIN   22
+        #define RELAY_PIN 25
+
+        MFRC522 rfid(SS_PIN, RST_PIN);
+
+        void setup() {
+          Serial.begin(115200);
+          SPI.begin();
+          rfid.PCD_Init();
+          pinMode(RELAY_PIN, OUTPUT);
+          digitalWrite(RELAY_PIN, HIGH); // Lockout active
+          Serial.println("[MAINFRAME] Safety interlock armed.");
+        }
+
+        void loop() {
+          if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial()) return;
+          Serial.println("[AUTH] Clearance granted. Engaging power relay.");
+          digitalWrite(RELAY_PIN, LOW);
+          delay(10000); // 10s tool duty cycle
+          digitalWrite(RELAY_PIN, HIGH);
+        }
+    notes.md: |-
+        # Night City Hardware Bench
+        - [x] Tested Bambu magnetic poop chute remix on X1-Carbon
+        - [x] Verified async upload progress bar on ESP32 SPIFFS
+        - [x] Aligned wide-angle optics on Pi Zero RTSP laser-cam
+        - [x] Calibrated Chandra-X black hole raymarching shader (smford/blackhole)
+        - [x] Optimized iTerm2 OSC 1337 image rendering in mdee (smford/mdee)
+        - [x] Deployed YAML anchor validator and RBAC manager (smford/yaml-web-validator)
+        - [x] Verified high-res Sixel & iTerm2 terminal Mermaid diagrams (smford/golang-mermaid)
+        - [x] Published official Homebrew tap formulas (smford/homebrew-tap)
+        - [x] Deployed IPv4/IPv6 CIDR decomposition & collision engine (smford/cidr-calculator)
+        - [x] 3D printed emergency stop wall mount (smford/emergency-stop-holder)
+        - [ ] Install Pica Dry wall holsters on main workbench
+    snmpd.conf: |-
+        # Raspberry Pi SNMPD Telemetry Configuration
+        syslocation "Workshop Bay 4"
+        syscontact "smford <admin@mainframe.local>"
+        rocommunity public default
+        # Hardware sensors script
+        extend cpu_temp /usr/bin/vcgencmd measure_temp
+    temp_monitor.ino: |-
+        // ESP32 Temperature Regulator & Alert Daemon
+        #include <WiFi.h>
+        #include <OneWire.h>
+        #include <DallasTemperature.h>
+
+        #define ONE_WIRE_BUS 4
+        #define FRIDGE_RELAY 26
+
+        OneWire oneWire(ONE_WIRE_BUS);
+        DallasTemperature sensors(&oneWire);
+
+        void setup() {
+          pinMode(FRIDGE_RELAY, OUTPUT);
+          sensors.begin();
+        }
+
+        void loop() {
+          sensors.requestTemperatures();
+          float tempC = sensors.getTempCByIndex(0);
+          if (tempC > 5.0) {
+            digitalWrite(FRIDGE_RELAY, LOW); // Active cooling
+          } else if (tempC < 3.5) {
+            digitalWrite(FRIDGE_RELAY, HIGH); // Disengage cooling
+          }
+          delay(5000);
+        }
+repositories:
+    - name: esp32-asyncwebserver-fileupload-example
+      category: Embedded
+      stars: 104
+      forks: 30
+      desc: High-performance asynchronous web server for ESP32 demonstrating drag-and-drop SPIFFS filesystem uploads with real-time browser progress bar telemetry.
+      tech:
+        - C++
+        - ESP32
+        - SPIFFS
+        - AsyncWebServer
+        - WebSockets
+      url: https://github.com/smford/esp32-asyncwebserver-fileupload-example
+    - name: raspberry-pi-streaming-camera
+      category: RaspberryPi
+      stars: 83
+      forks: 5
+      desc: Ultra-low latency RTSP camera feed on Raspberry Pi Zero W with hardware video flip (v4l2rtspserver + Nginx) for real-time laser cutter enclosure monitoring.
+      tech:
+        - Raspbian
+        - v4l2rtspserver
+        - Nginx
+        - Laser CNC
+        - MIPI-CSI
+      url: https://github.com/smford/raspberry-pi-streaming-camera
+    - name: rpi-snmpd-configuration
+      category: RaspberryPi
+      stars: 14
+      forks: 1
+      desc: Production SNMP daemon configuration for Raspberry Pi exposing hardware CPU core temperatures, system health, and Linux OS telemetry over network monitoring.
+      tech:
+        - SNMP
+        - Raspberry Pi
+        - Linux Sysadmin
+        - Bash
+      url: https://github.com/smford/rpi-snmpd-configuration
+    - name: Sunton-ESP32-2432S028R-Case
+      category: 3DPrinting
+      stars: 12
+      forks: 0
+      desc: Custom parametric 3D printable enclosure remix for the Sunton ESP32 2.8" LCD + touch controller, optimized for M3 socket screws and heat-set inserts.
+      tech:
+        - 3D Printing
+        - Bambu Lab
+        - PLA-CF
+        - CAD Remix
+        - ESP32-CYD
+      url: https://github.com/smford/Sunton-ESP32-2432S028R-Case
+    - name: eeh-esp32-rfid
+      category: Embedded
+      stars: 11
+      forks: 0
+      desc: Industrial RFID access control and safety interlock system built for East Essex Hackspace to restrict unauthorized power to 3kW workshop tools.
+      tech:
+        - Embedded C++
+        - ESP32
+        - RC522 RFID
+        - Hardware Relays
+      url: https://github.com/smford/eeh-esp32-rfid
+    - name: bambu-poop-chute-magnet-remix
+      category: 3DPrinting
+      stars: 4
+      forks: 0
+      desc: Magnetic snap-lock purge chute remix for Bambu Lab 3D printers, featuring recessed neodymium magnet slots for quick filament purge removal.
+      tech:
+        - 3D Printing
+        - CAD Remix
+        - Bambu Lab
+        - Magnets
+      url: https://github.com/smford/bambu-poop-chute-magnet-remix
+    - name: esp32-temp-monitor
+      category: Embedded
+      stars: 2
+      forks: 0
+      desc: Autonomous IoT temperature regulation daemon with Dallas DS18B20 OneWire sensors, local SSR cooling relay control, and Pushover alerts.
+      tech:
+        - C++
+        - ESP32
+        - OneWire
+        - DS18B20
+        - Pushover API
+      url: https://github.com/smford/esp32-temp-monitor
+    - name: dhcp-routeros-tool
+      category: Networking
+      stars: 1
+      forks: 0
+      desc: High-performance Go CLI utility querying MikroTik RouterOS v7 API to dump and inspect active DHCP leases with MAC address OUI vendor resolution.
+      tech:
+        - Go
+        - MikroTik API
+        - RouterOS v7
+        - Networking
+        - CLI
+      url: https://github.com/smford/dhcp-routeros-tool
+    - name: motioneye-snapshotter
+      category: RaspberryPi
+      stars: 1
+      forks: 0
+      desc: Webhook-driven surveillance snapshot utility hooking into motionEye motion detection triggers to extract, timestamp, and archive security footage.
+      tech:
+        - Python
+        - motionEye
+        - Webhooks
+        - Raspberry Pi
+      url: https://github.com/smford/motioneye-snapshotter
+    - name: mdee
+      category: Terminal
+      stars: 1
+      forks: 0
+      desc: High-fidelity terminal Markdown viewer in Go featuring full GFM rendering, Chroma syntax highlighting, OSC 1337 image support, and Mermaid diagram execution.
+      tech:
+        - Go
+        - Terminal CLI
+        - Goldmark
+        - Lip Gloss
+        - Chroma
+      url: https://github.com/smford/mdee
+      demo: https://stephenford.org/mdee/
+    - name: delim
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: Zero-allocation high-speed terminal delimiter and visual barrier generator in Go, engineered for SRE log-stream separation and build diagnostics.
+      tech:
+        - Go
+        - Terminal CLI
+        - Zero-Alloc
+        - Cross-Platform
+        - Homebrew
+      url: https://github.com/smford/delim
+    - name: hamburger-decomp
+      category: Web
+      stars: 0
+      forks: 0
+      desc: Photorealistic, interactive 3D culinary exploded view featuring smooth scroll interpolation, anti-aliased composite layers, and procedural audio synthesis.
+      tech:
+        - JavaScript
+        - CSS 3D
+        - Web Audio API
+        - HTML5
+        - Vanilla Web
+      url: https://github.com/smford/hamburger-decomp
+      demo: https://stephenford.org/hamburger-decomp/
+    - name: fly-around-the-moon
+      category: Web
+      stars: 0
+      forks: 0
+      desc: Interactive 3D Moon exploration web application featuring dynamic Level-of-Detail (LOD), sub-kilometer surface photography, and real-time ephemeris.
+      tech:
+        - Three.js
+        - WebGL
+        - Vite
+        - JavaScript
+        - Astrodynamics
+      url: https://github.com/smford/fly-around-the-moon
+      demo: https://stephenford.org/fly-around-the-moon/
+    - name: blackhole
+      category: Web
+      stars: 0
+      forks: 0
+      desc: 'Chandra-X: Relativistic Schwarzschild black hole simulator featuring general relativistic raymarching, gravitational lensing, and Doppler beaming disk.'
+      tech:
+        - WebGL 2.0
+        - GLSL Shaders
+        - General Relativity
+        - Raymarching
+      url: https://github.com/smford/blackhole
+      demo: https://stephenford.org/blackhole/
+    - name: OpenLicenseGuide
+      category: Web
+      stars: 0
+      forks: 0
+      desc: Interactive open-source license selector and decision tree designed with zero runtime dependencies to help developers choose the right OSS license in under 60 seconds.
+      tech:
+        - JavaScript
+        - SPDX
+        - PWA
+        - Offline-First
+        - Vanilla Web
+      url: https://github.com/smford/OpenLicenseGuide
+      demo: https://stephenford.org/OpenLicenseGuide/
+    - name: vim-html
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: Authentic in-browser Vim replica and simulated Linux SRE workstation environment featuring hierarchical VFS, GFM markdown rendering, and kernel boot simulation.
+      tech:
+        - JavaScript
+        - Vim Simulator
+        - Virtual Filesystem
+        - Terminal Shell
+      url: https://github.com/smford/vim-html
+      demo: https://stephenford.org/vim-html/
+    - name: homebrew-tap
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: Official Homebrew tap for smford CLI tools (cidr-calculator, mdee, delim, matrix-rain, matrix-cat) with automated multi-architecture formula packaging.
+      tech:
+        - Homebrew
+        - Formulas
+        - Ruby
+        - Bash
+        - macOS/Linux
+      url: https://github.com/smford/homebrew-tap
+      demo: https://stephenford.org/homebrew-tap/
+    - name: matrix-rain
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: High-performance authentic Matrix digital rain simulator for the terminal in Go, featuring half-width Katakana glyphs and 24-bit truecolor glowing heads.
+      tech:
+        - Go
+        - Terminal CLI
+        - VT100 / ANSI
+        - TrueColor
+        - Zero-Alloc
+      url: https://github.com/smford/matrix-rain
+      demo: https://stephenford.org/matrix-rain/
+    - name: matrix-cat
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: Digital rain terminal text and source code viewer (mcat) in Go, cascading characters down the screen with Chroma syntax highlighting.
+      tech:
+        - Go
+        - Terminal CLI
+        - Chroma Highlighting
+        - TrueColor
+        - Cascading Text
+      url: https://github.com/smford/matrix-cat
+      demo: https://stephenford.org/matrix-cat/
+    - name: toolsplit
+      category: Web
+      stars: 0
+      forks: 0
+      desc: Power tool promotional discount calculator and prorated return receipt engine optimizing Home Depot BOGO savings for Milwaukee, DeWalt, RIDGID, and Makita tooling.
+      tech:
+        - JavaScript
+        - CSS3
+        - Calculators
+        - Workshop Tooling
+        - Web App
+      url: https://github.com/smford/toolsplit
+      demo: https://stephenford.org/toolsplit/
+    - name: rbac-editor
+      category: Web
+      stars: 0
+      forks: 0
+      desc: 100% client-side in-browser Kubernetes RBAC and YAML security validator, featuring real-time AST traversal, anchor/alias resolution, and dead-code analysis.
+      tech:
+        - TypeScript
+        - Kubernetes RBAC
+        - YAML AST
+        - Security ICE
+        - Client-Side
+      url: https://github.com/smford/rbac-editor
+      demo: https://stephenford.org/rbac-editor/
+    - name: yaml-web-validator
+      category: Web
+      stars: 0
+      forks: 0
+      desc: 'YAML Clean: Modern client-side YAML IDE and anchor manager for SREs to manage anchors (&), aliases (*), and merge keys (<<), scan for secrets, and diff dereferenced trees.'
+      tech:
+        - TypeScript
+        - YAML AST
+        - PWA Offline
+        - SRE Tooling
+        - Zero-Telemetry
+      url: https://github.com/smford/yaml-web-validator
+      demo: https://stephenford.org/yaml-web-validator/
+    - name: pcboard-web-emu
+      category: Web
+      stars: 0
+      forks: 0
+      desc: High-fidelity retro BBS simulator recreating an IBM PC running MS-DOS 6.22 dialing into Clark Development PCBoard v15.22 with CP437 canvas rendering.
+      tech:
+        - TypeScript
+        - Canvas CP437
+        - Web Audio API
+        - MS-DOS BBS
+        - Retro Computing
+      url: https://github.com/smford/pcboard-web-emu
+      demo: https://stephenford.org/pcboard-web-emu/
+    - name: golang-mermaid
+      category: Terminal
+      stars: 0
+      forks: 0
+      desc: Production-grade Go module rendering high-resolution Mermaid diagrams in modern terminals via Kitty graphics protocol, iTerm2 OSC 1337, and DEC Sixel bitmap.
+      tech:
+        - Go
+        - Kitty Graphics
+        - iTerm2 OSC 1337
+        - DEC Sixel
+        - Mermaid CLI
+      url: https://github.com/smford/golang-mermaid
+    - name: cidr-calculator
+      category: Networking
+      stars: 0
+      forks: 0
+      desc: High-performance zero-dependency IPv4/IPv6 CIDR range decomposition engine, route aggregator, collision detector, and capacity planner in Go.
+      tech:
+        - Go
+        - IPv4 & IPv6
+        - CIDR / Subnetting
+        - Route Aggregation
+        - Terraform
+        - SRE Tooling
+      url: https://github.com/smford/cidr-calculator
+      demo: https://stephenford.org/cidr-calculator/
+    - name: emergency-stop-holder
+      category: 3DPrinting
+      stars: 0
+      forks: 0
+      desc: Industrial 3D printable wall mount enclosure for standard 22mm mushroom emergency stop switches, featuring tall (92mm) and short (75mm) models.
+      tech:
+        - 3D Printing
+        - Workshop Safety
+        - CAD
+        - Bambu Lab
+        - Hardware
+      url: https://github.com/smford/emergency-stop-holder
+    - name: cladding-cutlist
+      category: Fabrication
+      stars: 0
+      forks: 0
+      desc: Timber cladding cutlist generator and parametric layout optimizer minimizing board waste for workshop sheds and exterior timber architectural structures.
+      tech:
+        - JavaScript
+        - Timber Fabrication
+        - CAD
+        - Woodworking
+        - Web App
+      url: https://github.com/smford/cladding-cutlist
+build_logs:
+    - id: log-042
+      category: Hardware
+      title: EEH ESP32 RFID Tool Sentry
+      date: "2026-04-12"
+      status: DEPLOYED_ACTIVE
+      summary: Industrial RFID safety interlock system preventing unauthorized activation of 3kW workshop machinery and high-draw fabrication tools.
+      bom:
+        - item: ESP32 DevKit V1 (38-pin)
+          qty: "1"
+          role: Main Microcontroller
+        - item: RC522 13.56MHz RFID Module
+          qty: "1"
+          role: User Badge Scanner
+        - item: Optocoupler 5V Relay Block
+          qty: "1"
+          role: High-Voltage Coil Isolation
+        - item: 128x64 I2C OLED Display
+          qty: "1"
+          role: Telemetry & Operator Prompt
+      pinout:
+        - gpio: GPIO 21
+          device: I2C SDA
+          note: OLED Screen Data line
+        - gpio: GPIO 22
+          device: I2C SCL
+          note: OLED Screen Clock line
+        - gpio: GPIO 5
+          device: SPI SS / CS
+          note: RC522 RFID Chip Select
+        - gpio: GPIO 18
+          device: SPI SCK
+          note: RC522 SPI Clock
+        - gpio: GPIO 25
+          device: Relay Trigger
+          note: Active-Low Contactor Fire
+      schematic: |-
+        [ 230V AC Mains ] ---> [ 30A Contactor ] ---> [ Workshop Table Saw ]
+                                     ^
+                                     | (Galvanic Isolation)
+        [ ESP32 GPIO 25 ] ---> [ PC817 Optocoupler ] ---> [ 5V Relay Coil ]
+      notes: To prevent inductive back-EMF surges when 3kW induction motors spin down, the 5V relay coil is completely isolated with an optocoupler and flyback diode. User badges are verified locally via flash lookup tables.
+    - id: log-089
+      category: Optics
+      title: Pi Zero RTSP Laser-Cam
+      date: "2026-05-20"
+      status: DEPLOYED_ACTIVE
+      summary: Ultra-compact overhead optical monitoring system streaming low-latency video from inside a high-power CNC laser enclosure.
+      bom:
+        - item: Raspberry Pi Zero W
+          qty: "1"
+          role: Video Streaming Host
+        - item: 5MP Wide-Angle Cam (160° FoV)
+          qty: "1"
+          role: Optical Sensor
+        - item: 3D Printed Magnetic Enclosure
+          qty: "1"
+          role: Chassis & Smoke Baffle
+      pinout:
+        - gpio: CSI Ribbon
+          device: Camera Port
+          note: Direct 2-lane MIPI CSI-2
+        - gpio: MicroUSB
+          device: Power
+          note: 5V 2.5A Regulated Supply
+      schematic: '[ Wide-Angle Cam ] -(CSI)-> [ Pi Zero W ] -(H.264)-> [ v4l2rtspserver ] -(RTSP/WiFi)-> [ Mainframe ]'
+      notes: Configured v4l2rtspserver with hardware H.264 encoder flags (-H 1080 -W 1920 -F 25) achieving sub-120ms latency across local 5GHz Wi-Fi mesh.
+    - id: log-104
+      category: Fabrication
+      title: Sunton ESP32 CAD Enclosure
+      date: "2026-06-18"
+      status: PRODUCTION_RELEASE
+      summary: Parametric 3D-printed enclosure designed for the Sunton ESP32-2432S028R integrated LCD and touchscreen development deck.
+      bom:
+        - item: Sunton ESP32-2432S028R
+          qty: "1"
+          role: Integrated Touch Deck
+        - item: Bambu PLA-CF (Carbon Fiber)
+          qty: 45g
+          role: Structural Case Shell
+        - item: M3x4mm Brass Heat-Set Inserts
+          qty: "4"
+          role: Threaded Fasteners
+      pinout:
+        - gpio: Internal
+          device: ST7789 TFT
+          note: Parallel 8-bit SPI display
+        - gpio: GPIO 35
+          device: LDR Sensor
+          note: Ambient Light Sensor
+      schematic: |-
+        [ Top Bezel w/ Screen Cutout ]
+                  ↓ (M3 Screws)
+        [ Sunton ESP32 Deck ]
+                  ↓ (Heat-set Inserts)
+        [ Bottom Shell w/ VESA & DIN Rail Mounts ]
+      notes: Modeled in Fusion 360 with 0.2mm tolerance offsets for snap-fit tabs. Integrated ventilation channels direct convection airflow across the onboard ESP32 Wi-Fi module.
+    - id: log-112
+      category: Hardware
+      title: ESP32 Precision Temp Regulator
+      date: "2026-07-05"
+      status: DEPLOYED_ACTIVE
+      summary: Closed-loop micro-climate regulation unit logging DS18B20 telemetry to TICK stack and cycling 230V cooling relays for precision tortoise hibernation.
+      bom:
+        - item: ESP32 Dev Board
+          qty: "1"
+          role: Controller & Wi-Fi Node
+        - item: DS18B20 Probes (Waterproof)
+          qty: "2"
+          role: Multi-point Thermal Probes
+        - item: Solid State Relay 10A
+          qty: "1"
+          role: Compressor Switching
+      pinout:
+        - gpio: GPIO 4
+          device: OneWire Bus
+          note: Dallas DS18B20 Sensors
+        - gpio: GPIO 26
+          device: Relay SSR
+          note: Cooling Compressor Control
+      schematic: '[ DS18B20 Probes ] ---> [ ESP32 GPIO 4 ] ---> [ SSR Relay ] ---> [ Mini Fridge ]'
+      notes: Includes built-in webserver for live threshold configuration and Pushover emergency pushes if temperatures drift +/- 1.5°C outside the safety window.
+    - id: log-118
+      category: Fabrication
+      title: Timber Rafter & Outbuilding CAD Engine
+      date: "2026-07-28"
+      status: COMPLETED
+      summary: Interactive mathematical computation suite calculating complex dual-pitch birdsmouth cuts, structural joist spans, and cladding schedules.
+      bom:
+        - item: WebGL / HTML5 Canvas
+          qty: "1"
+          role: Visual Geometry Renderer
+        - item: UK Building Regs Part A/H
+          qty: "1"
+          role: Structural Compliance Matrix
+      pinout:
+        - gpio: Virtual
+          device: DOM Engine
+          note: Real-time trigonometric rafter rendering
+      schematic: '[ Span & Pitch Inputs ] ---> [ Trigonometric Solver ] ---> [ Canvas SVG Cutlist & BOM ]'
+      notes: Executes sub-millimeter timber cut calculations for complex hip rafters, calculating structural dead loads and Part H drainage runoffs instantly.
+quick_chips:
+    - label: help
+      command: help
+    - label: projects
+      command: projects
+    - label: matrix-rain
+      command: matrix-rain
+    - label: cidr
+      command: cidr 192.168.1.10+5
+    - label: blackhole
+      command: blackhole
+    - label: moon
+      command: moon
+    - label: bbs
+      command: bbs
+    - label: burger
+      command: burger
+    - label: mdee
+      command: mdee notes.md
+    - label: mcat
+      command: mcat notes.md
+    - label: delim
+      command: delim
+    - label: toolsplit
+      command: toolsplit calc 199 99
+    - label: rbac audit
+      command: rbac audit
+    - label: yaml lint
+      command: yaml lint
+    - label: license mit
+      command: license mit
+    - label: brew list
+      command: brew list
+    - label: mermaid
+      command: mermaid
+    - label: snmp
+      command: snmp
+    - label: rfid
+      command: rfid
+    - label: temp
+      command: temp
+    - label: cam
+      command: cam
+    - label: cad
+      command: cad
+    - label: estop
+      command: estop
+    - label: cd firmware
+      command: cd firmware
+    - label: ls
+      command: ls
+    - label: clear
+      command: clear
+custom_commands:
+    bbs:
+        description: Dial into Clark Dev PCBoard v15.22 MS-DOS BBS with audio
+        output: |-
+            [PCBOARD v15.22 MODEM HANDSHAKE]
+            Connecting to 28,800 bps V.34 modem pool...
+            CONNECT 28800 / V.42bis / CP437 ANSI
+            Welcome to The Byte Bunker BBS Node #1 (Sysop: smford)
+            Launch interface: use 'open bbs' or 'bbs web'
+        url: https://stephenford.org/pcboard-web-emu/
+    blackhole:
+        description: Relativistic Schwarzschild black hole raymarcher & ISCO telemetry
+        output: |-
+            [CHANDRA-X ACCRETION SIMULATOR]
+            Coordinate Observer: Schwarzschild Metric (G=c=1)
+            Event Horizon (r_s): 29.53 km | ISCO: 88.59 km
+            Photon Sphere: 44.30 km | Gravitational Redshift: z=0.414
+            Launch simulation: use 'open blackhole' or 'blackhole web'
+        url: https://stephenford.org/blackhole/
+    burger:
+        description: 3D culinary exploded view & layer inspection
+        output: |-
+            [CULINARY GASTRONOMY EXPLODED SCHEMATIC]
+            Layers parsed: Brioche Crown, Microgreens, Aged Cheddar, Smashed Patty, Aioli, Brioche Heel.
+            Launch interface: use 'open burger' or 'burger web'
+        url: https://stephenford.org/hamburger-decomp/
+    cad:
+        description: Bambu 3D CAD prints & parametric enclosures
+        output: |-
+            [PARAMETRIC CAD FABRICATION REPOSITORY]
+            Chassis 1: Sunton-ESP32-2432S028R-Case (Bambu PLA-CF, M3 Heat-Set)
+            Chassis 2: Bambu Lab Purge Chute Magnetic Snap-Lock (Neodymium N52)
+            Chassis 3: 22mm Industrial E-Stop Wall Bracket (75mm & 92mm specs)
+        url: https://github.com/smford/Sunton-ESP32-2432S028R-Case
+    cam:
+        description: Pi Zero W RTSP low-latency CNC surveillance camera
+        output: |-
+            [CNC OPTICAL LASER-CAM PIPELINE]
+            Stream: rtsp://192.168.4.180:8554/unicast
+            Encoder: Hardware H.264 V4L2 Device (/dev/video0)
+            Resolution: 1920x1080 @ 25fps (Sub-120ms Latency)
+            Hardware Invert: FLIP_H=1 FLIP_V=1 (Ceiling Gantry Mount)
+        url: https://github.com/smford/raspberry-pi-streaming-camera
+    esp32:
+        description: ESP32 AsyncWebServer chunked SPIFFS upload telemetry
+        output: |-
+            [ESP32 ASYNC WEBSERVER FILE-UPLOAD ENGINE]
+            Heap Free: 218,440 bytes | SPIFFS Total: 1,441,792 bytes (Used: 382,100 bytes)
+            Async TCP Handshake: 120ms | WebSocket Clients Active: 2
+            Status: READY FOR MULTI-PART CHUNKED STREAMS
+        url: https://github.com/smford/esp32-asyncwebserver-fileupload-example
+    estop:
+        description: Workshop emergency stop mount & safety housing
+        output: |-
+            [EMERGENCY STOP SAFETY SYSTEM]
+            Actuator: 22mm Turn-to-Reset Mushroom Head Pushbutton
+            Mounting: Bambu CF-PETG Rigid Flange with Countersunk M3 Holes
+            Wiring: Dual NC contacts in series with contactor coil circuit
+        url: https://github.com/smford/emergency-stop-holder
+    moon:
+        description: 3D lunar reconnaissance ephemeris & Apollo sites
+        output: |-
+            [SELENOGRAPHIC RECONNAISSANCE SUITE]
+            Target: Lunar Surface Reconnaissance (LOD: Level 14 Mesh)
+            Sub-Solar Point: 0.84°N 14.22°E | Optical Libration: 5.12°
+            Telemetry stream: use 'open moon' or 'moon web'
+        url: https://stephenford.org/fly-around-the-moon/
+    rfid:
+        description: East Essex Hackspace 3kW machinery safety sentry
+        output: |-
+            [EAST ESSEX HACKSPACE INTERLOCK SENTRY]
+            Bus: SPI 13.56MHz (RC522 Module on GPIO_05/18/23)
+            Contactor Isolation: PC817 Optocoupler -> 30A AC Relay
+            Authorized Badges: 48 Registered Operators
+            Status: INTERLOCK LOCKED (Awaiting induction badge swipe)
+        url: https://github.com/smford/eeh-esp32-rfid
+    snmp:
+        description: Raspberry Pi CPU temperature & system telemetry MIBs
+        output: |-
+            [HOST-RESOURCES-MIB TELEMETRY]
+            HOST-RESOURCES-MIB::hrSystemUptime.0 = (439281200) 50 days, 20:13:32.00
+            UCD-SNMP-MIB::extNames.1 = STRING: "cpu_temp"
+            UCD-SNMP-MIB::extOutput.1 = STRING: "temp=42.8'C"
+            NET-SNMP-EXTEND-MIB::nsExtendOutputFull."cpu_temp" = STRING: "42.8 C"
+    temp:
+        description: DS18B20 tortoise hibernation regulation daemon
+        output: |-
+            [THERMAL REGULATION TELEMETRY]
+            Probe 1 (Chamber Center): 4.12°C [OPTIMAL 3.5°C - 5.0°C]
+            Probe 2 (Substrate):      3.98°C [OPTIMAL]
+            Relay SSR (GPIO 26):      OFF (Passive Thermal Equilibrium)
+            Telemetry Sink: InfluxDB / Grafana (Push interval: 30s)
+        url: https://github.com/smford/esp32-temp-monitor
+    toolsplit:
+        description: Power tool promotional discount calculator and prorated return receipt engine
+        output: |-
+            [TOOLSPLIT BOGO SAVINGS OPTIMIZER]
+            Tool A (Primary): $199.00 | Tool B (Free): $99.00
+            Combined MSRP: $298.00 | Promotion Bundle Cost: $199.00
+            Effective Discount: 33.22%
+            Adjusted Return Value A: $132.89 | Adjusted Return Value B: $66.11
+            Launch interactive calculator: use 'open toolsplit'
+        url: https://stephenford.org/toolsplit/
+skills:
+    - name: EMBEDDED C++ / ESP32
+      percentage: 96
+    - name: LINUX / DEBIAN SYSADMIN
+      percentage: 94
+    - name: CAD & CNC TIMBER FABRICATION
+      percentage: 92
+    - name: GOLANG & NETWORKING
+      percentage: 88
+benches:
+    - id: "01"
+      title: RAPID FABRICATION
+      items:
+        - Bambu Lab 3D Printing (CF-Reinforced PETG/PLA)
+        - Custom CNC Gantry Router & Laser Cutter
+        - Parametric CAD (Fusion 360 / OpenSCAD)
+    - id: "02"
+      title: EMBEDDED LAB
+      items:
+        - ESP32 Dual-Core (Xtensa 240MHz, SPIFFS/LittleFS)
+        - Raspberry Pi Zero W / Compute Module 4
+        - Digital Logic Analyzers & Articulating Inspection
+    - id: "03"
+      title: NETWORK & TELEMETRY
+      items:
+        - Ubiquiti UniFi Local PoE Network Backbone
+        - MikroTik RouterOS Telemetry Hooks
+        - Home Assistant & Zigbee Mesh Integration
